@@ -75,9 +75,23 @@
   cursor: pointer;
 }
 
-.navbar-ListItem{
-
+.nav-List{
+    list-style-type: none;
+    display: inline;
+    margin: 0px;
+    padding: 0px;
+    direction: rtl;
+    display: flex;
 }
-b {
+
+.nav-ListItem{
+    margin: 0px;
+    padding: 0px;
+    float:right;
+    flex: 1;
+    cursor: pointer;
+}
+
+.b {
     font-weight: bold;
 }

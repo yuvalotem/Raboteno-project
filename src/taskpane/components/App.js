@@ -4,6 +4,10 @@ import { Button, ButtonType } from "office-ui-fabric-react";
 import Header from "./Header";
 import HeroList from "./HeroList";
 import NavBar from "./NavBar";
+import Browse from "./Browse";
+import Search from "./Search";
+import Acronyms from "./Acronyms";
+import Compare from "./Compare";
 import Progress from "./Progress";
 /* global Word */
 
@@ -43,6 +47,12 @@ export default class App extends React.Component {
   handleChange = (event) =>{
     this.setState({
       text: event.target.value
+    })
+  }
+
+  setPage = (pageNum) =>{
+    this.setState({
+      page: pageNum
     })
   }
 
@@ -93,8 +103,13 @@ export default class App extends React.Component {
 
     return (
       <div className="ms-welcome">
-        <NavBar page={this.state.page} items={this.state.listItems}/>
-        <Header logo="assets/logo-filled.png" title={this.props.title} message="Welcome!" />
+        <NavBar page={this.state.page} items={this.state.listItems} setPage={this.setPage}/>
+        {/* {this.state.page === 0 ? <Browse /> : null} */}
+        {this.state.page === 0 ? <Browse /> :
+        this.state.page === 1 ? <Search text={this.state.text} handleClick={this.click} handleChange={this.handleChange} /> :
+        this.state.page === 2 ? <Acronyms /> :
+        <Compare /> }
+        {/* <Header logo="assets/logo-filled.png" title={this.props.title} message="Welcome!" />
         <HeroList message="Discover what Office Add-ins can do for you today!" items={this.state.listItems}>
           <p className="ms-font-l">
             Modify the source files, then click <b>Run</b>.
@@ -111,7 +126,7 @@ export default class App extends React.Component {
           >
             Run
           </Button>
-        </HeroList>
+        </HeroList> */}
       </div>
     );
   }

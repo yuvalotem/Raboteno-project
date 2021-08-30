@@ -95,3 +95,7 @@
 .b {
     font-weight: bold;
 }
+.bookContainer{
+    cursor: pointer;
+    direction: rtl;
+}

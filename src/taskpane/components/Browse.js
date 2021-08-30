@@ -4,6 +4,7 @@ import { Button, ButtonType } from "office-ui-fabric-react";
 import NavBar from "./NavBar";
 import Books from "./Books";
 import SearchLocation from "./SearchLocation";
+import mapping from "./mapping.json";
 
 export default class Browse extends React.Component {
     constructor(props, context) {
@@ -42,7 +43,7 @@ export default class Browse extends React.Component {
       <div className="browseContainer">
         <NavBar page={this.state.page} items={this.state.listItems} setPage={this.setPage}/>
         {this.state.page === 0 ?
-        <Books /> :
+        <Books books={mapping} margin={0}/> :
         <SearchLocation />}
       </div>
     );

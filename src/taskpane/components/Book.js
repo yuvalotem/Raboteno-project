@@ -10,12 +10,25 @@ export default class Book extends React.Component {
           open: false,
         };
       }
+
+  handleClick = () =>{
+    const { book, openFile, path} = this.props;
+    if(typeof book === 'object' && book !== null && !Array.isArray(book)){
+      this.setState({open: !this.state.open})
+      path += "/" + Object.keys(book)[0]
+      // path += "/hello/is/it/me/your/looking/for"
+    }else{
+      openFile({ icon: "page", primaryText: book, path: path + "/" + book})
+    }
+  }
+
   render() {
-    const { book, margin } = this.props;
+    const { book, margin, openFile, path} = this.props;
     return (
       <div className="bookContainer" >
-        <span style={{marginRight: margin}} onClick={()=>this.setState({open: !this.state.open})}>{typeof book === 'object' ? Object.keys(book)[0] : book}</span>
-        {this.state.open && <Books books={book[Object.keys(book)[0]]} margin={margin+20}/>}
+        <span style={{marginRight: margin}} onClick={this.handleClick}>{typeof book === 'object' ? Object.keys(book)[0] : book}</span>
+        <div>path:{path}</div>
+        {this.state.open && <Books books={book[Object.keys(book)[0]]} openFile={openFile} path={path}  margin={margin+20}/>}
       </div>
     );
   }

@@ -4,7 +4,7 @@ import { Button, ButtonType } from "office-ui-fabric-react";
 import NavBar from "./NavBar";
 import Books from "./Books";
 import SearchLocation from "./SearchLocation";
-import mapping from "./mapping.json";
+import mapping from "../../../mapping.json";
 
 export default class Browse extends React.Component {
     constructor(props, context) {
@@ -12,6 +12,7 @@ export default class Browse extends React.Component {
         this.state = {
           listItems: [],
           page: 0,
+          path: "",
         };
       }
 
@@ -36,14 +37,20 @@ export default class Browse extends React.Component {
         })
       }
 
-  render() {
-    // const { page, items, setPage } = this.props;
+      setPath = (dir) =>{
+        this.setState({
+          path: path + "/" + dir
+        })
+      }
 
+  render() {
+    const { openFile } = this.props;
+    let path = ''
     return (
       <div className="browseContainer">
         <NavBar page={this.state.page} items={this.state.listItems} setPage={this.setPage}/>
         {this.state.page === 0 ?
-        <Books books={mapping} margin={0}/> :
+        <Books books={mapping} margin={0} openFile={openFile} path={path} /> :
         <SearchLocation />}
       </div>
     );

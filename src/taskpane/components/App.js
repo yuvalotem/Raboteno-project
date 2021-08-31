@@ -8,6 +8,7 @@ import Browse from "./Browse";
 import Search from "./Search";
 import Acronyms from "./Acronyms";
 import Compare from "./Compare";
+import Text from "./Text";
 import Progress from "./Progress";
 /* global Word */
 
@@ -18,6 +19,8 @@ export default class App extends React.Component {
       listItems: [],
       text: "",
       page: 0,
+      textName: "",
+      textpath: ""
     };
   }
 
@@ -54,6 +57,13 @@ export default class App extends React.Component {
     this.setState({
       page: pageNum
     })
+  }
+
+  openFile = fileName =>{
+    const { listItems } = this.state
+    listItems.push(fileName)
+    this.setState({listItems: listItems})
+    // this.setPage(this.state.listItems.length-1)
   }
 
   click = async () => {
@@ -105,10 +115,11 @@ export default class App extends React.Component {
       <div className="ms-welcome">
         <NavBar page={this.state.page} items={this.state.listItems} setPage={this.setPage}/>
         {/* {this.state.page === 0 ? <Browse /> : null} */}
-        {this.state.page === 0 ? <Browse /> :
+        {this.state.page === 0 ? <Browse openFile={this.openFile} /> :
         this.state.page === 1 ? <Search text={this.state.text} handleClick={this.click} handleChange={this.handleChange} /> :
         this.state.page === 2 ? <Acronyms /> :
-        <Compare /> }
+        this.state.page === 3 ? <Compare /> :
+        <Text name={this.state.listItems[this.state.page].primaryText} path={this.state.listItems[this.state.page].path}/> }
         {/* <Header logo="assets/logo-filled.png" title={this.props.title} message="Welcome!" />
         <HeroList message="Discover what Office Add-ins can do for you today!" items={this.state.listItems}>
           <p className="ms-font-l">

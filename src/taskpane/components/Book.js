@@ -16,7 +16,6 @@ export default class Book extends React.Component {
     if(typeof book === 'object' && book !== null && !Array.isArray(book)){
       this.setState({open: !this.state.open})
       path += "/" + Object.keys(book)[0]
-      // path += "/hello/is/it/me/your/looking/for"
     }else{
       openFile({ icon: "page", primaryText: book, path: path + "/" + book})
     }
@@ -27,7 +26,6 @@ export default class Book extends React.Component {
     return (
       <div className="bookContainer" >
         <span style={{marginRight: margin}} onClick={this.handleClick}>{typeof book === 'object' ? Object.keys(book)[0] : book}</span>
-        <div>path:{path}</div>
         {this.state.open && <Books books={book[Object.keys(book)[0]]} openFile={openFile} path={path}  margin={margin+20}/>}
       </div>
     );
